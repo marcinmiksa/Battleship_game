@@ -1,12 +1,10 @@
+import Point
+
 class Ship:
-    def __init__(self, x, y, type, axis):
-        self.x = x
-        self.y = y
-        self.type = type
-        self.axis = axis
+    def __init__(self, coordinate, length):
+        self.coordinate = coordinate
+        self.length = length
     def getCoordinates(self):
-        return [self.x, self.y]
-    def getType(self):
-        return self.type
-    def getAxis(self):
-        return self.axis
+        return [self.coordinate.getX(), self.coordinate.getY()]
+    def getLength(self):
+        return self.length
