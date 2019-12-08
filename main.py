@@ -10,8 +10,3 @@ size = int(input())
 
 boardUtils.initBoard(size)
 boardUtils.drawBoard()
-
-point = pt.Point(2, 2)
-ship = ship.Ship(point, 3)
-print(ship.getCoordinates())
-
