@@ -1,12 +1,11 @@
 # TODO: Czyszczenie ekranu
 import utils
-import Ship as ship
-import Point as pt
 
 boardUtils = utils.BoardUtils()
 
 print("Podaj rozmiar planszy: ")
 size = int(input())
+print("Podaj rozmiar planszy: ")
 
-boardUtils.initBoard(size)
-boardUtils.drawBoard()
+boardUtils.init_board(size)
+boardUtils.draw_board()
