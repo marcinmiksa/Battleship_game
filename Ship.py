@@ -16,9 +16,9 @@ class Ship:
     def set_parts(self, head_coordinate, length, ship_type):
         for i in range(length):
             if ship_type == 'h':
-                self.ship_parts.append(Point.Point(head_coordinate.get_x(), (head_coordinate.get_y() + i)))
-            else:
                 self.ship_parts.append(Point.Point((head_coordinate.get_x() + i), head_coordinate.get_y()))
+            else:
+                self.ship_parts.append(Point.Point(head_coordinate.get_x(), (head_coordinate.get_y() + i)))
 
     def get_coordinate_x(self):
         return self.coordinate.get_x()
