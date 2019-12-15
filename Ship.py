@@ -1,16 +1,14 @@
 import Point
 
-# TODO: Refactor name of class Point -> Coordinate
-
 
 class Ship:
-    ship_parts = []
 
     def __init__(self, coordinate, length, ship_type, status):
         self.coordinate = coordinate
         self.length = length
         self.ship_type = ship_type
         self.status = status
+        self.ship_parts = []
         self.set_parts(coordinate, length, ship_type)
 
     def set_parts(self, head_coordinate, length, ship_type):
@@ -27,7 +25,7 @@ class Ship:
         return self.coordinate.get_y()
 
     def get_length(self):
-        return self.length
+        return len(self.ship_parts)
 
     def get_ship_type(self):
         return self.ship_type
