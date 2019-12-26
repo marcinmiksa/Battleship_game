@@ -1,12 +1,15 @@
-# TODO: Czyszczenie ekranu
-import utils
-
-boardUtils = utils.BoardUtils()
-
-print("Podaj rozmiar planszy: ")
-size = int(input())
-
-boardUtils.initBoard(size)
-boardUtils.drawBoard()
+from Game import Game
 
 
+def main():
+    try:
+        game = Game()
+        game.run()
+    except KeyboardInterrupt:
+        exit(0)
+    except ValueError:
+        print('\nNieprawidlowy symbol wejsciowy')
+        exit(1)
+
+if __name__ == '__main__':
+    main()
