@@ -30,19 +30,29 @@ class Board:
                         print('x ', end='')
             print()
 
-    def is_free_place(self, point, length):
+    def is_free_place(self, point, length, orientation):
         for i in range(length):
             if isinstance(self.fields[point.get_y()][point.get_x() + i], ShipPart):
                 return False
+            if orientation:
+                point.set_x(point.get_x() + i)
+            else:
+                point.set_y(point.get_y() + i)
         return True
 
     def rand_ship(self, length):
         while True:
-            x = random.randint(1, self.size_x - (length + 1))
-            y = random.randint(1, self.size_y - (length + 1))
-            if self.is_free_place(Point(x, y), length):
+            x = random.randint(0, self.size_x - (length + 1))
+            y = random.randint(0, self.size_y - (length + 1))
+            orientation = random.randint(0, 1)
+            print('{}..{}'.format(x,y))
+            if self.is_free_place(Point(x, y), length, orientation):
                 for i in range(length):
-                    self.fields[y][x + i] = ShipPart(Point(x + i, y), True)
+                    self.fields[y][x] = ShipPart(Point(x, y), True)
+                    if orientation:
+                        x += 1
+                    else:
+                        y += 1
                 break
 
     def strike(self, point):
