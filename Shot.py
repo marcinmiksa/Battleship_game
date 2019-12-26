@@ -1,0 +1,4 @@
+class Shot:
+    SHOT_REPEATED = -1
+    SHOT_UNSUCCESSFUL = 0
+    SHOT_SUCCESSFUL = 1
