@@ -1,4 +1,6 @@
 class Stats:
+    ship_counter = 0
+
     def __init__(self):
         self.tries_count = 0
         self.missed_shots_count = 0

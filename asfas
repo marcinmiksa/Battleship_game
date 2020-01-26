@@ -1,0 +1,135 @@
+FSM_ALPHABET = ('0', '1', '2', '3', '4', 'a', 'b', 'c', 'd', 'e')
+TRANSITION_LIST = (
+    {'0': ('0', '1'), '1': ('0', '2'), '2': ('0', '3'), '3': ('0', '4'), '4': ('0', '5'), 'a': ('0', '6'),
+     'b': ('0', '7'), 'c': ('0', '8'), 'd': ('0', '9'),
+     'e': ('0', '10')},
+    {'0': '11'},
+    {'1': '11'},
+    {'2': '11'},
+    {'3': '11'},
+    {'4': '11'},
+    {'a': '12'},
+    {'b': '12'},
+    {'c': '12'},
+    {'d': '12'},
+    {'e': '12'},
+    {'0': '11', '1': '11', '2': '11', '3': '11', '4': '11', 'a': '11', 'b': '11', 'c': '11', 'd': '11', 'e': '11'},
+    {'0': '12', '1': '12', '2': '12', '3': '12', '4': '12', 'a': '12', 'b': '12', 'c': '12', 'd': '12', 'e': '12'}
+)
+END_STATE = 6
+TERMINATOR = '\n'
+
+
+# TODO Sprawdzanie kilku przejsc
+
+
+def get_lines_from_file(path):
+    files_list = []
+    with open(path) as file_reader:
+        for line in file_reader:
+            files_list.append(line)
+    return files_list
+
+
+def is_input_correct(input_string):
+    for symbol in input_string:
+        if symbol != '\n' and symbol not in FSM_ALPHABET:
+            return False
+    return True
+
+
+def display_states_table():
+    print('\nTabela przejsc automatu:')
+    cntr = 0
+    for _dict_ in TRANSITION_LIST:
+        print('**** Stan q{} ****'.format(cntr))
+        for transition in _dict_.items():
+            print('{} -> {}'.format(transition[0], transition[1]))
+        cntr += 1
+    print()
+
+
+def display_acceptable_strings(str_list):
+    print('\nAkceptowalne ciagi w pliku:')
+    for _str_ in str_list:
+        print(_str_)
+
+
+def display_path(path):
+    print('\nPokonana sciezka: ')
+    for state in path:
+        print('q{} '.format(state), end='')
+    print('\n')
+
+
+def is_loop(state, symbol):
+    if symbol in TRANSITION_LIST[FSM_ALPHABET.index(str(state))].keys():
+        return True
+    return False
+
+
+def get_transitions(state, symbol):
+    tmp_list = []
+    trn_list = TRANSITION_LIST[FSM_ALPHABET.index(state)].get(symbol)
+    if trn_list is not None:
+        for transition in trn_list:
+            tmp_list.append(transition)
+    return tmp_list
+
+
+def run_fsm():
+    string_list = get_lines_from_file('data.txt')
+    acceptable_strings = []
+    line = string_list[0]
+    print(line)
+
+    for line in string_list:
+        # Walidacja ciagu
+        if not is_input_correct(line.strip(TERMINATOR)):
+            print('Ciag zawiera znak spoza alfabetu'.format(line))
+            continue
+        current_state = '0'
+        fsm_path = []
+        line_length = len(line.strip(TERMINATOR))
+        # Iteracja po odczytanym ciagu
+        for str_iterator in range(line_length):
+            fsm_path.append(current_state)
+            symbol = line[str_iterator]
+            transitions = get_transitions(current_state, symbol)
+            print('Wczytany symbol: {}, aktualny stan: q{}'.format(symbol, current_state))
+            print(transitions)
+            next_position = str_iterator + 1
+            if next_position < line_length:
+                # Sprawdz czy symbol nie jest rowny nastepnikowi w ciagu
+                if symbol != line[next_position]:
+                    if not is_loop(current_state, symbol):
+                        next_symbol_index = FSM_ALPHABET.index(line[next_position])
+                        _index_ = transitions.index(str(next_symbol_index + 1))
+                        print('Index!={}'.format(_index_))
+
+                        current_state = str(transitions[_index_])
+                else:
+                    print(transitions.index(FSM_ALPHABET.index(line[next_position])))
+                    #new_state = TRANSITION_LIST[current_state].get(str(line[next_position]))
+                    print('New {}'.format(new_state))
+                    current_state = str(transitions[_index_])
+                    #print('c: {}, s: {}, p: {}'.format(current_state, symbol, line[next_position]))
+                    # transition_to_next = TRANSITION_LIST[FSM_ALPHABET.index(str(current_state))].get(
+                    #     line[next_position])
+                    # next_symbol_index = FSM_ALPHABET.index(line[next_position])
+                    # print('Char: {} INDEX {}'.format(line[next_position], next_symbol_index + 1))
+                    # _index_ = transitions.index(str(next_symbol_index + 1))
+                    # print('Index=={}, len {} value {}'.format(_index_, len(transitions), transitions[_index_]))
+
+
+        display_path(fsm_path)
+
+
+if __name__ == '__main__':
+    # display_states_table()
+    #run_fsm()
+    tr = (0, 6)
+    index = FSM_ALPHABET.index('a') + 1
+    num = tr.index(index)
+    current_state = TRANSITION_LIST[tr[num]].get('a')
+    # print(TRANSITION_LIST[0].get('a').index('6'))

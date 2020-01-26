@@ -37,4 +37,11 @@ def test_ship_count_equals4():
     board = Board(dim_x, dim_y)
     board.create()
     board.rand_ship(4)
-    assert ShipPart.counter == 4
+    assert ShipPart.ship_counter == 4
+
+
+def test_field_status():
+    dim_x = dim_y = 10
+    board = Board(dim_x, dim_y)
+    test_point = Point(5, 5)
+    assert board.get_field(test_point).get_status() == 1
